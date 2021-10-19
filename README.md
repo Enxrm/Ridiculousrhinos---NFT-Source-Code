@@ -1,5 +1,5 @@
 # Ridiculous Rhinos
-Ridiculous Rhinos source code
+Ridiculous Rhinos source code & all other public infomation
 
 Programmed in Solidity, 
 compiled using version 0.8.7 commit
