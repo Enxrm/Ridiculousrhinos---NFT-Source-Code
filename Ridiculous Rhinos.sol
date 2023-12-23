@@ -14,64 +14,17 @@ contract RidiculousRhinos is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
 
     Counters.Counter private _tokenIdCounter;
 
-    /**
-     * Max Token Supply
-     */
-
-    uint256 public maxTokenSupply = 10000;
-
-    /**
-     * Max mints allowed per TXN
-     */
-
+    uint256 public constant maxTokenSupply = 10000;
     uint256 public constant maxPerTxn = 8;
-
-    /**
-     * Max mints allowed during presale
-     */
-
     uint256 public allowListMaxMint = 4;
-
-    /**
-     * Current mint price
-     */
-
     uint256 public mintPrice = 50000000 gwei; // 0.05 ETH
-
-    /**
-     * Pre-sale mint price
-     */
-    
     uint256 public preSaleMintPrice = 35000000 gwei; // 0.035 ETH
 
-    /**
-     * Is sale active?
-     */
-
     bool public saleIsActive = false;
-
-    /**
-     * Is pre-sale active?
-     */
-
     bool public preSaleIsActive = false;
-
-    /**
-     * Is Breeding Active
-     */
-
     bool public breedingIsActive = false;
 
-    /**
-     * BaseURI
-     */
-
     string public baseURI;
-
-    /**
-     * Provenance hash
-     */
-
     string public provenance;
 
     mapping(address => bool) private _allowList;
@@ -85,25 +38,13 @@ contract RidiculousRhinos is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
 
     constructor() ERC721("RidiculousRhinos", "RHINO") {}
 
-    /**
-     * Change max total supply
-     */
-
     function setMaxTokenSupply(uint256 maxSupply) public onlyOwner {
         maxTokenSupply = maxSupply;
     }
 
-    /**
-     * Set mint price
-     */
-
     function setMintPrice(uint256 newPrice) public onlyOwner {
         mintPrice = newPrice;
     }
-
-    /**
-     * Add address to presale list
-     */
 
     function addToAllowList(address[] calldata addresses) external onlyOwner {
         for (uint256 i = 0; i < addresses.length; i++) {
@@ -120,10 +61,6 @@ contract RidiculousRhinos is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
         }
     }
 
-    /**
-     * Remove address from presale list
-     */
-
     function removeFromAllowList(address[] calldata addresses)
         external
         onlyOwner
@@ -136,17 +73,9 @@ contract RidiculousRhinos is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
         }
     }
 
-    /**
-     * Check if address has been added to presale list
-     */
-
     function onAllowList(address addr) external view returns (bool) {
         return _allowList[addr];
     }
-
-    /**
-     * View ammount claimed by address
-     */
 
     function allowListClaimedBy(address owner)
         external
@@ -158,10 +87,6 @@ contract RidiculousRhinos is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
         return _allowListClaimed[owner];
     }
 
-    /**
-     * Reserve tokens for developers
-     */
-
     function reserveMint(uint256 reservedAmount) public onlyOwner {
         uint256 supply = _tokenIdCounter.current();
         for (uint256 i = 1; i <= reservedAmount; i++) {
@@ -169,10 +94,6 @@ contract RidiculousRhinos is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
             _tokenIdCounter.increment();
         }
     }
-
-    /**
-     * Mint to giveaway winners address
-     */
 
     function giveawayMint(uint256 reservedAmount, address mintAddress)
         public
@@ -185,33 +106,17 @@ contract RidiculousRhinos is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
         }
     }
 
-    /**
-     * Flip sale status
-     */
-
     function flipSaleStatus() public onlyOwner {
         saleIsActive = !saleIsActive;
     }
-
-    /**
-     * Flip pre-sale status
-     */
 
     function flipPreSaleStatus() public onlyOwner {
         preSaleIsActive = !preSaleIsActive;
     }
 
-    /**
-     * Flip breeding status
-     */
-
     function flipBreedingStatus() public onlyOwner {
         breedingIsActive = !breedingIsActive;
     }
-
-    /**
-     * Mint Tokens
-     */
 
     function mintRhinos(uint256 numberOfTokens) public payable {
         require(saleIsActive, "Sale must be active to mint");
@@ -236,10 +141,6 @@ contract RidiculousRhinos is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
             }
         }
     }
-
-    /**
-     * Pre Sale mint
-     */
 
     function preSaleMint(uint256 numberOfTokens) public payable {
         require(_allowList[msg.sender], "You are not on the Allow List");
@@ -272,25 +173,13 @@ contract RidiculousRhinos is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
         }
     }
 
-    /**
-     * View baseURI
-     */
-
     function _baseURI() internal view virtual override returns (string memory) {
         return baseURI;
     }
 
-    /**
-     * Set baseURI
-     */
-
     function setBaseURI(string memory newBaseURI) public onlyOwner {
         baseURI = newBaseURI;
     }
-
-    /**
-     * set proveance hash
-     */
 
     function setProvenanceHash(string memory provenanceHash) public onlyOwner {
         provenance = provenanceHash;
@@ -336,10 +225,6 @@ contract RidiculousRhinos is ERC721, ERC721Enumerable, ERC721Burnable, Ownable {
         // fire event in logs
         emit rhinoBred(firstTokenId, secondTokenId, breedRhinoId);
     }
-
-    /**
-     * Withdraw funds from contract address to owner
-     */
 
     function withdraw() external onlyOwner {
         uint256 balance = address(this).balance;
