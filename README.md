@@ -1,4 +1,4 @@
-![Ridiculous Rhinos Banner](https://imgur.com/a/12IAgls)
+![Ridiculous Rhinos Banner](https://imgur.com/8QRC0Ox)
 
 
 # Ridiculous Rhinos
