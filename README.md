@@ -1,3 +1,6 @@
+![Ridiculous Rhinos Banner](https://imgur.com/a/12IAgls)
+
+
 # Ridiculous Rhinos
 
 Welcome to the source code repository for Ridiculous Rhinos! This repository contains the source code and all other publicly available information related to the Ridiculous Rhinos NFT collection.
